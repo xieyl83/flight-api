@@ -27,10 +27,10 @@ public class Flights {
   private String company_id;
 
   @Column(name = "departure_airport_id")
-  private long departure_airport_id;
+  private Long departure_airport_id;
 
   @Column(name = "destination_airport_id")
-  private long destination_airport_id;
+  private Long destination_airport_id;
 
   @Column(name = "departure_date")
   @Temporal(TemporalType.DATE)

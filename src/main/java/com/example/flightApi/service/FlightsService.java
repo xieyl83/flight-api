@@ -14,7 +14,7 @@ public class FlightsService {
   @Autowired
   private FlightsRepository flightsRepository;
 
-  public List<Flights> queryFlights(Long departure_airport_id, Long destination_airport_id, Date departure_date) {
-    return flightsRepository.queryFlights(departure_airport_id, destination_airport_id, departure_date);
+  public List<Flights> queryFlights(String dep_city, String des_city, Date departure_date) {
+    return flightsRepository.queryFlights(dep_city, des_city, departure_date);
   }
 }
