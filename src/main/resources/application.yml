@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: flightApi
+  web:
+    resources:
+      static-locations:
+        - file:/Users/xieyongli/Documents/GitHub/FullStack25Q2/flight-client/dist
   datasource:
     url: jdbc:mysql://xxxx:xxxx/xxxx
     username: xxxx
