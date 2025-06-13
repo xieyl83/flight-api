@@ -10,9 +10,9 @@
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.example</groupId>
-  <artifactId>flightApi</artifactId>
+  <artifactId>flightapi</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>flightApi</name>
+  <name>flightapi</name>
   <description>Flight API</description>
   <url />
   <licenses>
@@ -103,6 +103,13 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <excludes>
             <exclude>

@@ -1,8 +1,9 @@
-package com.example.flightApi.entity;
+package com.example.flightapi.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,68 +15,85 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "v_flight")
-public class Flights {
+@Table(name = "v_booking")
+public class BookingViewEntity {
   @Id
+  @Column(name = "booking_id")
+  private Long bookingId;
+
+  @Column(name = "user_id")
+  private Long userId;
+
   @Column(name = "flight_id")
-  private Long flight_id;
+  private Long flightId;
+
+  @Column(name = "reference")
+  private String reference;
+
+  @Column(name = "status")
+  private String status;
+
+  @Column(name = "booking_time")
+  private Timestamp bookingTime;
+
+  @Column(name = "total_price", precision = 38, scale = 2)
+  private BigDecimal totalPrice;
 
   @Column(name = "flight_number")
-  private String flight_number;
+  private String flightNumber;
 
   @Column(name = "company_id")
-  private String company_id;
+  private String companyId;
 
   @Column(name = "departure_airport_id")
-  private Long departure_airport_id;
+  private Long departureAirportId;
 
   @Column(name = "destination_airport_id")
-  private Long destination_airport_id;
+  private Long destinationAirportId;
 
   @Column(name = "departure_date")
   @Temporal(TemporalType.DATE)
-  private Date departure_date;
+  private Date departureDate;
 
   @Column(name = "departure_time")
   @Temporal(TemporalType.TIME)
-  private Time departure_time;
+  private Time departureTime;
 
   @Column(name = "destination_date")
   @Temporal(TemporalType.DATE)
-  private Date destination_date;
+  private Date destinationDate;
 
   @Column(name = "destination_time")
   @Temporal(TemporalType.TIME)
-  private Time destination_time;
+  private Time destinationTime;
 
   @Column(name = "stop_over")
-  private String stop_over;
+  private String stopOver;
 
   @Column(name = "price", precision = 10, scale = 2)
   private BigDecimal price;
 
   @Column(name = "dep_code")
-  private String dep_code;
+  private String depCode;
 
   @Column(name = "dep_name")
-  private String dep_name;
+  private String depName;
 
   @Column(name = "dep_city")
-  private String dep_city;
+  private String depCity;
 
   @Column(name = "des_code")
-  private String des_code;
+  private String desCode;
 
   @Column(name = "des_name")
-  private String des_name;
+  private String desName;
 
   @Column(name = "des_city")
-  private String des_city;
+  private String desCity;
 
   @Column(name = "name_en")
-  private String name_en;
+  private String nameEn;
 
   @Column(name = "name_cn")
-  private String name_cn;
-
+  private String nameCn;
 }
