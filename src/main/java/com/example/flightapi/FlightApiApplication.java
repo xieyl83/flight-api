@@ -1,4 +1,4 @@
-package com.example.flightApi;
+package com.example.flightapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

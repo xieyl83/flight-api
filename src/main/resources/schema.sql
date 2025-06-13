@@ -1,4 +1,4 @@
--- ===Table===
+-- ===tables===
 
 create table user(
 user_id bigint primary key,
@@ -41,7 +41,7 @@ foreign key (company_id) references company(company_id)
 );
 
 create table booking(
-booking_id bigint primary key,
+booking_id bigint auto_increment primary key,
 user_id bigint,
 flight_id bigint,
 reference varchar(20) not null,
@@ -61,10 +61,10 @@ email varchar(100) not null,
 foreign key (booking_id) references booking(booking_id)
 );
 
--- ===view===
+-- ===views===
 
 create view v_flight as
-SELECT A.flight_id flight_id,A.flight_number,A.company_id,A.departure_airport_id,A.destination_airport_id,
+SELECT A.flight_id,A.flight_number,A.company_id,A.departure_airport_id,A.destination_airport_id,
 A.departure_date,A.departure_time,A.destination_date,A.destination_time,A.stop_over,A.price,
 B.code dep_code,B.name dep_name,B.city dep_city,
 C.code des_code,C.name des_name,C.city des_city,
@@ -77,13 +77,13 @@ ON A.destination_airport_id=C.airport_id
 INNER JOIN company D
 ON A.company_id=D.company_id;
 
--- ===clean===
-
---alter table flight drop foreign key flight_ibfk_1;
---alter table flight drop foreign key flight_ibfk_2;
---alter table flight drop foreign key flight_ibfk_3;
---alter table booking drop foreign key booking_ibfk_1;
---alter table booking drop foreign key booking_ibfk_2;
---alter table passenger drop foreign key passenger_ibfk_1;
---drop table passenger,booking,flight,airport,company,user;
---drop view v_flight;
+create view v_booking as
+select a.booking_id,a.user_id,a.reference,a.status,a.booking_time,a.total_price,
+b.flight_id,b.flight_number,b.company_id,b.departure_airport_id,b.destination_airport_id,
+b.departure_date,b.departure_time,b.destination_date,b.destination_time,b.stop_over,b.price,
+b.dep_code,b.dep_name,b.dep_city,
+b.des_code,b.des_name,b.des_city,
+b.name_en,b.name_cn
+from booking a
+inner join v_flight b
+on a.flight_id = b.flight_id;

@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  flight-api:
+    build: .
+    container_name: flight-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATABASE_URL: jdbc:mysql://xieyongli-flightdb.cj6gcogsidzt.ap-southeast-2.rds.amazonaws.com:3306/flightdb
+      SPRING_DATABASE_USERNAME: mysqladm
+      SPRING_DATABASE_PASSWORD: mysqladmpwd123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
