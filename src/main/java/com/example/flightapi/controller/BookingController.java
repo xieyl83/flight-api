@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,20 +19,29 @@ import com.example.flightapi.entity.BookingEntity;
 import com.example.flightapi.mapper.BookingMapper;
 import com.example.flightapi.pojo.BookFlightRequestData;
 import com.example.flightapi.service.BookingService;
+import com.example.flightapi.service.UserService;
 
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
   @Autowired
-  private BookingService bookingService;
+  BookingService bookingService;
 
+  @Autowired
+  UserService userService;
+
+  @CrossOrigin(origins = "*")
   @PostMapping
-  public CommonResponseDto<BookingResultDto> bookFlights(@RequestBody BookingRequestDto requestData) {
+  public CommonResponseDto<BookingResultDto> bookFlights(@RequestBody BookingRequestDto requestData,
+      Authentication authentication) {
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    Long user_id = userService.findUserByEmail(userDetails.getUsername()).getUserId();
+
     CommonResponseDto<BookingResultDto> response = null;
     List<BookFlightRequestData> flightsData = requestData.getFlights();
     List<BookingEntity> bookingEntityList = new ArrayList<BookingEntity>();
     if (flightsData.size() == 1) {
-      BookingEntity bookingEntity = bookingService.bookSingleTrip(flightsData.get(0), 1L, "单程");
+      BookingEntity bookingEntity = bookingService.bookSingleTrip(flightsData.get(0), user_id, "单程");
       if (bookingEntity == null) {
         response = new CommonResponseDto<BookingResultDto>(false, 200, "订票信息登记失败，请稍后重试。",
             null);
@@ -37,7 +49,7 @@ public class BookingController {
       }
       bookingEntityList.add(bookingEntity);
     } else if (flightsData.size() == 2) {
-      List<BookingEntity> results = bookingService.bookRoundTrip(flightsData.get(0), flightsData.get(1), 1L, "往返");
+      List<BookingEntity> results = bookingService.bookRoundTrip(flightsData.get(0), flightsData.get(1), user_id, "往返");
       if (results.size() != 2) {
         response = new CommonResponseDto<BookingResultDto>(false, 200, "订票信息登记失败，请稍后重试。",
             null);
